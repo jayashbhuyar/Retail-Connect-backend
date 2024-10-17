@@ -8,8 +8,8 @@ const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const networkRoutes = require("./routes/networkRoutes");
 const orderRoutes = require("./routes/orderRoutes");
-const adminRoutes=require("./routes/adminRoutes")
-const feedbackRoutes=require("./routes/feedbackRoutes")
+const adminRoutes = require("./routes/adminRoutes");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 const newsRoutes = require("./routes/newsRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 
@@ -20,16 +20,11 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 
 // Middleware
-app.use(cors()); // Enable CORS
-// app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*" })); // Allow requests from all origins
 app.use(express.json()); // Parse JSON bodies
 
 mongoose
-  .connect(process.env.MONGO_URI, {
-    // Use the connection string from .env
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
@@ -43,7 +38,7 @@ app.use("/admin", adminRoutes);
 app.use("/api", feedbackRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/news", newsRoutes);
-// app.use('/admin/orders',adminRoutes);
+
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server is running on http://localhost:${PORT}`);
