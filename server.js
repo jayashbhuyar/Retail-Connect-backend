@@ -23,7 +23,9 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 const corsOptions = {
-  origin: 'https://retailconnect-qx883ixx5-jayashbhuyars-projects.vercel.app', // Allow requests only from this origin
+  origin: 'retail-connect-frontend.vercel.app',
+
+ // Allow requests only from this origin
   credentials: true, // Allow cookies to be sent with requests
   optionsSuccessStatus: 200,
 };
@@ -49,7 +51,7 @@ app.use("/admin", verifyToken, adminRoutes);
 app.use("/api", verifyToken, feedbackRoutes);
 app.use("/api/invoices", verifyToken, invoiceRoutes);
 app.use("/api/news", verifyToken, newsRoutes);
-app.use("/api/otp", verifyToken, otpRoutes);
+app.use("/api/otp",  otpRoutes);
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
