@@ -13,7 +13,7 @@ const feedbackRoutes = require("./routes/feedbackRoutes");
 const newsRoutes = require("./routes/newsRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
 const otpRoutes = require("./routes/otpRoutes");
-const {verifyToken, validate} = require("./middleware/verify")
+const {validate} = require("./middleware/verify")
 
 // Load environment variables
 dotenv.config();
@@ -44,13 +44,13 @@ mongoose
 app.post("/api/validate", validate)
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
-app.use("/api/products", verifyToken, productRoutes);
-app.use("/api/network", verifyToken, networkRoutes);
-app.use("/api/orders", verifyToken, orderRoutes);
-app.use("/admin", verifyToken, adminRoutes);
-app.use("/api", verifyToken, feedbackRoutes);
-app.use("/api/invoices", verifyToken, invoiceRoutes);
-app.use("/api/news", verifyToken, newsRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/network", networkRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/admin", adminRoutes);
+app.use("/api", feedbackRoutes);
+app.use("/api/invoices", invoiceRoutes);
+app.use("/api/news", newsRoutes);
 app.use("/api/otp", otpRoutes);
 
 // Start the server
