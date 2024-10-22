@@ -67,7 +67,7 @@ exports.loginUser = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,           // Prevent access to cookie via JavaScript
       secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-      sameSite: "Strict",       // Prevent CSRF attacks
+      sameSite: 'None',       // Prevent CSRF attacks
       maxAge: 60 * 60 * 1000,   // 1 hour in milliseconds
     });
     // console.log(res.cookie)
@@ -101,7 +101,7 @@ exports.logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true, // Same options as when you set the cookie
     secure: process.env.NODE_ENV === "production", // Only in production over HTTPS
-    sameSite: "Strict", // Prevent CSRF attacks
+    sameSite: 'None', // Prevent CSRF attacks
   });
   
   // Optionally, send a success response
