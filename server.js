@@ -43,7 +43,7 @@ mongoose
 // Routes
 app.post("/api/validate", validate)
 app.use("/api/auth", authRoutes);
-app.use("/api/users", verifyToken, userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/products", verifyToken, productRoutes);
 app.use("/api/network", verifyToken, networkRoutes);
 app.use("/api/orders", verifyToken, orderRoutes);
@@ -51,7 +51,7 @@ app.use("/admin", verifyToken, adminRoutes);
 app.use("/api", verifyToken, feedbackRoutes);
 app.use("/api/invoices", verifyToken, invoiceRoutes);
 app.use("/api/news", verifyToken, newsRoutes);
-app.use("/api/otp",  otpRoutes);
+app.use("/api/otp", otpRoutes);
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
