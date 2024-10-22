@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 const corsOptions = {
-  origin: 'https://retail-connect-webapp.vercel.app/',
+  origin: 'https://retail-connect-webapp.vercel.app',
 
  // Allow requests only from this origin
   credentials: true, // Allow cookies to be sent with requests
