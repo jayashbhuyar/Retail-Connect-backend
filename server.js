@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 const corsOptions = {
-  origin: 'http://localhost:5173', // Allow requests only from this origin
+  origin: 'https://retailconnect-ra0yyordy-jayashbhuyars-projects.vercel.app', // Allow requests only from this origin
   credentials: true, // Allow cookies to be sent with requests
   optionsSuccessStatus: 200,
 };
