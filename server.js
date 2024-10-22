@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 8000;
 
 // Middleware
 const corsOptions = {
-  origin: 'https://retailconnect-ra0yyordy-jayashbhuyars-projects.vercel.app', // Allow requests only from this origin
+  origin: 'https://retailconnect-avpzp2zxf-jayashbhuyars-projects.vercel.app', // Allow requests only from this origin
   credentials: true, // Allow cookies to be sent with requests
   optionsSuccessStatus: 200,
 };
