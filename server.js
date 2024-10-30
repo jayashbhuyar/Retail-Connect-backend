@@ -2,7 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser"); // Add this
+const cookieParser = require("cookie-parser");
+const fileUpload = require("express-fileupload");
+
+// Load environment variables
+dotenv.config();
+
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
@@ -18,28 +23,20 @@ const landingpageRoutes = require("./routes/landingpageRoutes");
 const uploadRoutes = require("./routes/uploadRoutes");
 
 const { verifyToken, validate } = require("./middleware/verify");
-// const uploadRoutes = require('./routes/uploadRoutes');
-
-// Load environment variables
-dotenv.config();
-const fileUpload = require("express-fileupload");
-// const { uploadQRCode } = require("./controllers/uploadController");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Middleware
+// CORS Configuration
 const corsOptions = {
-  origin: "https://retail-connect-webapp.vercel.app", // Allow requests only from this origin
-  credentials: true, // Allow cookies to be sent with requests
+  origin: "https://retail-connect-webapp.vercel.app",
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
-app.use(cors(corsOptions)); // Enable CORS
-app.use(express.json()); // Parse JSON bodies
-app.use(cookieParser()); // Add cookie parser
-
-// ##########################################
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   fileUpload({
     useTempFiles: true,
@@ -48,15 +45,13 @@ app.use(
 
 // Database connection
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Routes
-
-// app.use('/api/upload', uploadRoutes);
 app.use("/api/landingpage", landingpageRoutes);
-app.use("/api/upload/", uploadRoutes);
+app.use("/api/upload", uploadRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/auth", authRoutes);
 app.post("/api/validate", validate);
@@ -68,9 +63,13 @@ app.use("/admin", verifyToken, adminRoutes);
 app.use("/api", verifyToken, feedbackRoutes);
 app.use("/api/invoices", verifyToken, invoiceRoutes);
 app.use("/api/news", verifyToken, newsRoutes);
-
-// ***************************************************************************************
 app.use("/api/chat", chatRoutes);
+
+// Error Handling Middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ error: "Internal Server Error" });
+});
 
 // Start the server
 app.listen(PORT, "0.0.0.0", () => {
