@@ -31,7 +31,7 @@ const PORT = process.env.PORT || 8000;
 const corsOptions = {
   origin: "https://retail-connect-final.vercel.app", // Update this to your frontend URL
   credentials: true, // Allow cookies to be sent with requests
-  methods: ['GET', 'POST','PUT','DELETE'], // Add other methods if needed
+  methods: ['GET', 'POST','PUT','DELETE','PATCH'], // Add other methods if needed
   optionsSuccessStatus: 200,
 };
 
