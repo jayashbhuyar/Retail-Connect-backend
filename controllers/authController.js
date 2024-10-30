@@ -60,15 +60,15 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: "1h" }
+      { expiresIn: "30d" }
     ); // Use environment variable for secret
 
     // Set the token in an HTTP-only cookie
     res.cookie("token", token, {
       httpOnly: true,           // Prevent access to cookie via JavaScript
       secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-      sameSite: 'None',       // Prevent CSRF attacks
-      maxAge: 60 * 60 * 1000,   // 1 hour in milliseconds
+      sameSite: "Strict",       // Prevent CSRF attacks
+      maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days in milliseconds
     });
     // console.log(res.cookie)
     // const data = await res.json();
@@ -101,7 +101,7 @@ exports.logoutUser = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true, // Same options as when you set the cookie
     secure: process.env.NODE_ENV === "production", // Only in production over HTTPS
-    sameSite: 'None', // Prevent CSRF attacks
+    sameSite: "Strict", // Prevent CSRF attacks
   });
   
   // Optionally, send a success response

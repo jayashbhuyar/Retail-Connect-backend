@@ -41,6 +41,8 @@ exports.addToNetwork = async (req, res) => {
       userId: user._id,
       userName: user.name,
       userEmail: user.email,
+      dist_img:distributor.image,
+      retail_img:user.image,
       status: "pending", // Set the initial status to pending
       createdAt: new Date(),
     });
@@ -161,6 +163,7 @@ exports.getAcceptedRequestsRetailerByEmail = async (req, res) => {
     res.status(500).json({ error: "Error fetching accepted requests." });
   }
 };
+
 exports.updateRequestStatus = async (req, res) => {
   const { id } = req.params; // Get the request ID from the URL parameters
 
@@ -180,5 +183,28 @@ exports.updateRequestStatus = async (req, res) => {
   } catch (error) {
     console.error("Error rejecting request:", error);
     return res.status(500).json({ error: "An error occurred while rejecting the request." });
+  }
+};
+
+exports.getAcceptedConnections = async (req, res) => {
+  try {
+    const { email } = req.params;
+    
+    // Find networks where the email matches either distributor or user
+    const networks = await Network.find({
+      $and: [
+        { status: 'accepted' },
+        {
+          $or: [
+            { distributorEmail: email },
+            { userEmail: email }
+          ]
+        }
+      ]
+    });
+    
+    res.json(networks);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express.Router();
 const {
   addProduct,
   getProductsByDistributorEmail,
@@ -11,10 +12,55 @@ const {
   updateRejectedStock,
   getAllProductsByDistributorEmail,
 } = require("../controllers/productController");
-const router = express.Router();
 
-// POST endpoint to add a new product
-router.post("/add", addProduct);
+// const multer = require('multer');
+// const path = require('path');
+// const upload = require('../config/multerConfig'); // Adjust the path as needed
+// const upload = require('../middleware/upload');
+
+// const express = require("express");
+// const router = express.Router();
+// const multer = require('multer');
+// const path = require('path');
+
+// Configure multer for file upload
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     // Ensure uploads directory exists
+//     const dir = 'uploads';
+//     if (!fs.existsSync(dir)) {
+//       fs.mkdirSync(dir);
+//     }
+//     cb(null, dir);
+//   },
+//   filename: (req, file, cb) => {
+//     // Create unique filename
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+//     cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+//   }
+// });
+
+// Add file filter
+// const fileFilter = (req, file, cb) => {
+//   // Accept only image files
+//   if (file.mimetype.startsWith('image/')) {
+//     cb(null, true);
+//   } else {
+//     cb(new Error('Not an image! Please upload an image.'), false);
+//   }
+// };
+
+// const upload = multer({
+//   storage: storage,
+//   fileFilter: fileFilter,
+//   limits: {
+//     fileSize: 5 * 1024 * 1024 // 5MB limit
+//   }
+// });
+
+// Route configuration
+router.post('/add',addProduct);
+
 
 // GET endpoint to retrieve products by distributor email
 router.get("/", getProductsByDistributorEmail);

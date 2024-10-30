@@ -10,7 +10,10 @@ const networkSchema = new mongoose.Schema({
   distributorEmail: { type: String, required: true }, // Email of the distributor
   userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Reference to the user
   userName: { type: String, required: true }, // Name of the user
-  userEmail: { type: String, required: true }, // Email of the user
+  userEmail: { type: String, required: true },
+  dist_img: {type: String},
+  retail_img: {type: String},
+   // Email of the user
   status: {
     type: String,
     enum: ["pending", "accepted", "rejected"],

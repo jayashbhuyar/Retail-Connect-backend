@@ -227,7 +227,10 @@ const updateOrderStatusCompleted = async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       orderId,
-      { status: "completed" },
+      { 
+        status: "completed",
+        completedOn: new Date(), // Sets the completedOn field to the current date
+      },
       { new: true } // Returns the updated document
     );
 
@@ -241,6 +244,7 @@ const updateOrderStatusCompleted = async (req, res) => {
     res.status(500).json({ message: "Server error." });
   }
 };
+
 // orderController.js
 
 const getCompletedOrders = async (req, res) => {

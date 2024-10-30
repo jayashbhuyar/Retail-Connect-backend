@@ -1,12 +1,22 @@
 const express = require("express");
-const { addToNetwork, updateNetworkStatus, getNetworkRequests, getPendingRequestsByEmail, getAcceptedRequestsByEmail ,getAcceptedRequestsRetailerByEmail,updateRequestStatus} = require("../controllers/networkcontroller");
+const {
+  addToNetwork,
+  updateNetworkStatus,
+  getNetworkRequests,
+  getPendingRequestsByEmail,
+  getAcceptedRequestsByEmail,
+  getAcceptedRequestsRetailerByEmail,
+  updateRequestStatus,
+  getAcceptedConnections,
+} = require("../controllers/networkcontroller");
 const router = express.Router();
 
+//api/network/
 // POST endpoint to add a distributor to the network
 router.post("/add", addToNetwork);
 
-router.put("/reject/status/:id",updateRequestStatus);
-
+router.put("/reject/status/:id", updateRequestStatus);
+router.get("/accepted/:email", getAcceptedConnections);
 // PUT endpoint to update the status of a network request
 router.put("/status/:id", updateNetworkStatus);
 
@@ -15,6 +25,6 @@ router.get("/", getNetworkRequests);
 
 // GET endpoint to fetch pending requests by distributor email
 router.get("/pending", getPendingRequestsByEmail);
+router.get("/all/accepted/retailer", getAcceptedRequestsRetailerByEmail);
 router.get("/accepted", getAcceptedRequestsByEmail);
-router.get("/accepted/retailer", getAcceptedRequestsRetailerByEmail);
 module.exports = router;
