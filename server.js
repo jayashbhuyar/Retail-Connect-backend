@@ -29,7 +29,7 @@ const PORT = process.env.PORT || 8000;
 
 // CORS Configuration
 const corsOptions = {
-  origin: "https://retail-connect-webapp.vercel.app",
+  origin: "https://retail-connect-webapp-hpqligaz5-jayashbhuyars-projects.vercel.app/",
   credentials: true,
   optionsSuccessStatus: 200,
 };
