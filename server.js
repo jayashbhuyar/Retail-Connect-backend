@@ -54,7 +54,6 @@ app.use("/api/landingpage", landingpageRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/auth", authRoutes);
-app.post("/api/validate", validate);
 app.use("/api/users", verifyToken, userRoutes);
 app.use("/api/products", verifyToken, productRoutes);
 app.use("/api/network", verifyToken, networkRoutes);
@@ -64,6 +63,7 @@ app.use("/api", verifyToken, feedbackRoutes);
 app.use("/api/invoices", verifyToken, invoiceRoutes);
 app.use("/api/news", verifyToken, newsRoutes);
 app.use("/api/chat", chatRoutes);
+app.post("/api/validate", validate);
 
 // Error Handling Middleware
 app.use((err, req, res, next) => {
